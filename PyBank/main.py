@@ -47,6 +47,7 @@ print(f'Average Change: ${average_change}')
 print(f'Greatest Increase in Profits: {greatest_increase_date} (${greatest_increase_value})')
 print(f'Greatest Decrease in Profits: {greatest_decrease_date} (${greatest_decrease_value})')
 
+# Does the output file need to go in an output directory?
 output_file = 'output.txt'
 
 with open(output_file, 'w') as text:
