@@ -12,7 +12,6 @@ with open(csvpath, newline='') as csvfile:
     csv_header = next(csvreader) #['Voter ID', 'County', 'Candidate']
 
     for row in csvreader:
-        # Do we need to take into consideration duplicate Voter IDs?
         candidate = row[2]
         if candidate:
             total_votes = total_votes + 1
@@ -22,41 +21,31 @@ with open(csvpath, newline='') as csvfile:
             else:
                 candidates_with_votes[candidate] = 1
 
-print('Election Results')
-print('-------------------------')
-print(f'Total Votes: {total_votes}')
-print('-------------------------')
-winner = ''
-for pair in candidates_with_votes:
-    final_votes_of_candidate = candidates_with_votes[pair]
-    percentage = (final_votes_of_candidate / total_votes) * 100
-    percentage_str = f"{percentage:.3f}"
-    print(f'{pair}: {percentage_str}% ({final_votes_of_candidate})')
-    if winner == '':
-        winner = pair
-    elif final_votes_of_candidate > candidates_with_votes[pair]:
-        winner = pair
-print('-------------------------')
-print(f'Winner: {winner}')
-print('-------------------------')
-
 output_file = 'output.txt'
 
 with open(output_file, 'w') as text:
+    print('Election Results')
+    print('-------------------------')
+    print(f'Total Votes: {total_votes}')
+    print('-------------------------')
     text.write('Election Results\n')
     text.write('-------------------------\n')
     text.write(f'Total Votes: {total_votes}\n')
     text.write(f'-------------------------\n')
     winner = ''
-    for pair in candidates_with_votes:
-        final_votes_of_candidate = candidates_with_votes[pair]
+    for possible_winner in candidates_with_votes:
+        final_votes_of_candidate = candidates_with_votes[possible_winner]
         percentage = (final_votes_of_candidate / total_votes) * 100
         percentage_str = f"{percentage:.3f}"
-        text.write(f'{pair}: {percentage_str}% ({final_votes_of_candidate})\n')
+        print(f'{possible_winner}: {percentage_str}% ({final_votes_of_candidate})')
+        text.write(f'{possible_winner}: {percentage_str}% ({final_votes_of_candidate})\n')
         if winner == '':
-            winner = pair
-        elif final_votes_of_candidate > candidates_with_votes[pair]:
-            winner = pair
+            winner = possible_winner
+        elif final_votes_of_candidate > candidates_with_votes[possible_winner]:
+            winner = possible_winner
+    print('-------------------------')
+    print(f'Winner: {winner}')
+    print('-------------------------')
     text.write(f'-------------------------\n')
     text.write(f'Winner: {winner}\n')
     text.write(f'-------------------------\n')

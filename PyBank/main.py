@@ -1,16 +1,15 @@
 import os
 import csv
 
-# Is it ok to get the file from the same directory that the python file is in?
-csvpath = os.path.join('budget_data.csv')
-
 num_months = 0
 profit_loss_total = 0
+average_change = 0
 greatest_increase_date = ''
 greatest_increase_value = 0
 greatest_decrease_date = ''
 greatest_decrease_value = 0
 
+csvpath = os.path.join('budget_data.csv')
 with open(csvpath, newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
 
@@ -18,11 +17,9 @@ with open(csvpath, newline='') as csvfile:
     
     for row in csvreader:
         my_date = row[0]
-        # Do we ever need to worry about duplicate or missing dates?
         if (my_date):
             num_months = num_months + 1
         
-        # Do we ever need to worry about missing profit/loss?
         profit_loss = int(row[1])
         if (profit_loss):
             profit_loss_total = profit_loss_total + profit_loss
@@ -36,8 +33,6 @@ with open(csvpath, newline='') as csvfile:
         
     if (num_months > 0):
         average_change = round(profit_loss_total / num_months, 2)
-    else:
-        average_change = 0
 
 print('Financial Analysis')
 print('----------------------------')
@@ -47,7 +42,6 @@ print(f'Average Change: ${average_change}')
 print(f'Greatest Increase in Profits: {greatest_increase_date} (${greatest_increase_value})')
 print(f'Greatest Decrease in Profits: {greatest_decrease_date} (${greatest_decrease_value})')
 
-# Does the output file need to go in an output directory?
 output_file = 'output.txt'
 
 with open(output_file, 'w') as text:
