@@ -11,7 +11,7 @@ greatest_decrease_date = ''
 greatest_decrease_value = 0
 
 # open CSV file in the same directory as code
-csvpath = os.path.join('budget_data.csv')
+csvpath = os.path.join('Resources', 'budget_data.csv')
 with open(csvpath, newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
 

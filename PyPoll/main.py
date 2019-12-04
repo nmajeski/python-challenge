@@ -1,7 +1,7 @@
 import os
 import csv
 
-csvpath = os.path.join('election_data.csv')
+csvpath = os.path.join('Resources', 'election_data.csv')
 
 # initialize variables for use to get the final results
 total_votes = 0
